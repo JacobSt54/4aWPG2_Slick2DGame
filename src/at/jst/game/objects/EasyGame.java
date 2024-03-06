@@ -1,6 +1,7 @@
 package at.jst.game.objects;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.GeomUtil;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,9 @@ public class EasyGame extends BasicGame {
     private Music music;
     private Sound sound;
     private int lautstärke =0;
+    private Font font;
+    private int hit=0;
+    private int miss=0;
     public EasyGame() {
         super("EasyGame");
     }
@@ -32,6 +36,7 @@ public class EasyGame extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
+        font = new AngelCodeFont("testdata/demo2.fnt","testdata/demo2_00.tga");
         background = new Image("assets/pics/background.png");
         mUfoList = new ArrayList<MeinUfo>();
         for(int i=1;i<=10;i++) {
@@ -71,6 +76,11 @@ public class EasyGame extends BasicGame {
                 System.out.println("coolide");
                 sound.play();
                 u.setRandomPosition();
+                hit ++;
+            }
+            if (u.getY()>768){
+                miss++;
+                u.setRandomPosition();
             }
             u.update(delta);
         }
@@ -80,9 +90,12 @@ public class EasyGame extends BasicGame {
     public void render(GameContainer container, Graphics g) throws SlickException {
         background.draw();
         crusher.draw(g);
+        font.drawString(80,5,"hit"+hit ,Color.black);
+        font.drawString(80,25,"Miss"+miss ,Color.red);
 
         for(MeinUfo u : mUfoList)
             u.draw(g);
+
 
     }
 
