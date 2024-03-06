@@ -18,6 +18,7 @@ public class EasyGame extends BasicGame {
     private Font font;
     private int hit=0;
     private int miss=0;
+    private Sound gameoversound;
     public EasyGame() {
         super("EasyGame");
     }
